@@ -9,35 +9,32 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class AlarmTest {
+	
+	@Test
+	public final void testAlarmIsOnWhenPressureNotWithinThreshhold() {
+		Alarm alarm = new Alarm(new ISensor() {
 
-	Alarm alarm = new Alarm();
-	
-	@Before
-	public void setUp() throws Exception {
-		alarm = new Alarm();
-	}
-	
-	@Test
-	public void testCreateAlarm() {
-		assertThat(alarm, notNullValue());
-	}
-
-	@Test
-	public final void testAlarmIsOffWhenCreated() {
-		assertThat(alarm.isAlarmOn(), is(false));
-	}
-	
-	@Test
-	public final void testAlarmIsOnWhenPressureBelowThreshhold() {
-		alarm = new Alarm(new ISensor() {
-			
 			@Override
-			public double popNextPressurePsiValue() {
-				return Alarm.lowPressureThreshold -1;
+			public boolean isWithinThreshold() {
+				return false;
 			}
 		});
+		
 		assertThat(alarm.isAlarmOn(), is(true));	
 	}
-
-
+	
+	@Test
+	public final void testAlarmIsOnWhenPressureNotWithinThreshholdOfSensorMock() {
+		
+		ISensor mockSensor = mock(ISensor.class);
+		when(mockSensor.isWithinThreshold()).thenReturn(false);
+		
+		Alarm alarm = new Alarm(mockSensor);
+		
+		assertThat(alarm.isAlarmOn(), is(true));
+		
+		verify(mockSensor).isWithinThreshold();
+	}
+	
+	
 }
