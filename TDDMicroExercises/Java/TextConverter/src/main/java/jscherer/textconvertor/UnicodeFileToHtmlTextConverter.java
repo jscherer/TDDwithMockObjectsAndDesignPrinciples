@@ -3,17 +3,17 @@ package jscherer.textconvertor;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
 public class UnicodeFileToHtmlTextConverter {
 
-	private String fullFilenameWithPath;
-	private Reader reader;
+	BufferedReader bufferedReader = null;
 
-	public UnicodeFileToHtmlTextConverter(String fullFilenameWithPath) {
-		this.fullFilenameWithPath = fullFilenameWithPath;
+	public UnicodeFileToHtmlTextConverter(String fullFilenameWithPath) throws FileNotFoundException {
+		this(new BufferedReader(new FileReader(fullFilenameWithPath)));
 	}
 
 	/**
@@ -22,17 +22,10 @@ public class UnicodeFileToHtmlTextConverter {
 	 * @param reader
 	 */
 	public UnicodeFileToHtmlTextConverter(Reader reader) {
-		this.reader = reader;
+		bufferedReader = new BufferedReader(reader);
 	}
 
 	public String convertToHtml() throws IOException {
-		BufferedReader bufferedReader = null;
-		if (reader == null) {
-			bufferedReader = new BufferedReader(new FileReader(fullFilenameWithPath));
-		} else {
-			bufferedReader = new BufferedReader(reader);
-		}
-
 		String line = bufferedReader.readLine();
 		String html = "";
 		while (line != null) {

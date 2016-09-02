@@ -6,7 +6,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 
 import org.junit.Before;
@@ -15,11 +14,10 @@ import org.junit.Test;
 public class UnicodeFileToHtmlTextConverterTest {
 	
 	UnicodeFileToHtmlTextConverter converter;
-	Reader stringReader;
 	
 	@Before
 	public void setUp() throws Exception {
-		converter = new UnicodeFileToHtmlTextConverter(stringReader);
+		converter = new UnicodeFileToHtmlTextConverter(new StringReader(""));
 	}
 
 	@Test
@@ -29,7 +27,6 @@ public class UnicodeFileToHtmlTextConverterTest {
 
 	@Test
 	public void testConvertEmptyString() throws IOException {
-		converter = new UnicodeFileToHtmlTextConverter(new StringReader(""));
 		assertThat(converter.convertToHtml(), equalTo(""));
 	}
 	
