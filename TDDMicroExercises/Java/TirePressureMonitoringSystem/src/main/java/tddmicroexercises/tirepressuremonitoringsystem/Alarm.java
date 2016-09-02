@@ -6,7 +6,7 @@ public class Alarm {
 	private boolean alarmOn = false;
 
 	/**
-	 * DIP, constructor dependency injection
+	 * OCP, DIP: constructor dependency injection of Sensor Interface
 	 * @param sensorBelowThreshhold
 	 */
 	public Alarm(Sensor sensor) {
