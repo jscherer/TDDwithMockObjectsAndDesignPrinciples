@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class UnicodeFileToHtmlTextConverter {
+	
 	private String fullFilenameWithPath;
 	private BufferedReader reader;
 
@@ -14,6 +15,11 @@ public class UnicodeFileToHtmlTextConverter {
 		this.fullFilenameWithPath = fullFilenameWithPath;
 	}
 
+	/**
+	 * Injected not to violate OCP and DIP
+	 * 
+	 * @param reader
+	 */
 	public UnicodeFileToHtmlTextConverter(BufferedReader reader) {
 		this.reader = reader;
 	}
@@ -30,6 +36,8 @@ public class UnicodeFileToHtmlTextConverter {
 			/*
 			 * Escapes the characters in a String using HTML entities. For example:
 			 * "bread" & "butter" becomes: &quot;bread&quot; &amp; &quot;butter&quot;.
+			 * 
+			 * Maybe this should be abstracted (as HtmlUtils) and injected to not violate OCP and DIP?
 			 */
 			html += StringEscapeUtils.escapeHtml4(line);
 			html += "<br />";
