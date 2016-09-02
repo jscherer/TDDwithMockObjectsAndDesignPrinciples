@@ -3,11 +3,12 @@ package tddmicroexercises.tirepressuremonitoringsystem;
 import java.util.Random;
 
 public class PressureSensor implements Sensor {
-	
+
 	public static final double OFFSET = 16;
-	
+
 	private final double lowPressureThreshold = 17;
-    private final double highPressureThreshold = 21;
+	private final double highPressureThreshold = 21;
+	private boolean inThreshold = true;
 
 	public double popNextPressurePsiValue() {
 		double pressureTelemetryValue;
@@ -29,12 +30,15 @@ public class PressureSensor implements Sensor {
 	 */
 	@Override
 	public boolean isWithinThreshold() {
-		boolean inThreshold = true;
+		check();
+		return inThreshold;
+	}
+
+	void check() {
 		double psiPressureValue = popNextPressurePsiValue();
 
 		if (psiPressureValue < lowPressureThreshold || highPressureThreshold < psiPressureValue) {
 			inThreshold = false;
 		}
-		return inThreshold;
 	}
 }

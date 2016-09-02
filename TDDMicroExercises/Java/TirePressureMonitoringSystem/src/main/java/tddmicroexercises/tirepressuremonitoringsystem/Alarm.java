@@ -7,6 +7,7 @@ public class Alarm {
 
 	/**
 	 * OCP, DIP: constructor dependency injection of Sensor Interface
+	 * 
 	 * @param sensorBelowThreshhold
 	 */
 	public Alarm(Sensor sensor) {
@@ -15,5 +16,14 @@ public class Alarm {
 
 	public boolean isAlarmOn() {
 		return !sensor.isWithinThreshold();
+	}
+
+	/**
+	 * @deprecated SRP: Alarm should not check Pressure
+	 * use isAlarmOn() instead
+	 */
+	public void check() {
+		PressureSensor ps = (PressureSensor) sensor;
+		ps.check();
 	}
 }
