@@ -1,16 +1,16 @@
 package jscherer.textconvertor;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
 
 public class UnicodeFileToHtmlTextConverterTest {
 	
@@ -55,6 +55,5 @@ public class UnicodeFileToHtmlTextConverterTest {
 			String actual = converter.convertToHtml();
 			assertThat(actual, equalTo("&quot;bread&quot; &amp; &quot;butter&quot;<br />"));
 	}
-	
-	
+
 }
