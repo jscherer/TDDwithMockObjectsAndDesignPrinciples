@@ -25,14 +25,16 @@ public class AlarmTest {
 	
 	@Test
 	public final void testAlarmIsOnWhenPressureNotWithinThreshholdOfSensorMock() {
-		
+		// arrange (given)
 		Sensor mockSensor = mock(Sensor.class);
 		when(mockSensor.isWithinThreshold()).thenReturn(false);
 		
 		Alarm alarm = new Alarm(mockSensor);
 		
-		assertThat(alarm.isAlarmOn(), is(true));
+		// act (when)
+		alarm.isAlarmOn();
 		
+		// verify behaviour (then)
 		verify(mockSensor).isWithinThreshold();
 	}
 	
