@@ -12,7 +12,7 @@ public class AlarmTest {
 	
 	@Test
 	public final void testAlarmIsOnWhenPressureNotWithinThreshhold() {
-		Alarm alarm = new Alarm(new ISensor() {
+		Alarm alarm = new Alarm(new Sensor() {
 
 			@Override
 			public boolean isWithinThreshold() {
@@ -26,7 +26,7 @@ public class AlarmTest {
 	@Test
 	public final void testAlarmIsOnWhenPressureNotWithinThreshholdOfSensorMock() {
 		
-		ISensor mockSensor = mock(ISensor.class);
+		Sensor mockSensor = mock(Sensor.class);
 		when(mockSensor.isWithinThreshold()).thenReturn(false);
 		
 		Alarm alarm = new Alarm(mockSensor);

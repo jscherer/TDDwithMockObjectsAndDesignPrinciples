@@ -2,11 +2,15 @@ package tddmicroexercises.tirepressuremonitoringsystem;
 
 public class Alarm {
 
-	private ISensor sensor;
+	private Sensor sensor;
 	private boolean alarmOn = false;
 
-	public Alarm(ISensor sensorBelowThreshhold) {
-		this.sensor = sensorBelowThreshhold;
+	/**
+	 * DIP, constructor dependency injection
+	 * @param sensorBelowThreshhold
+	 */
+	public Alarm(Sensor sensor) {
+		this.sensor = sensor;
 	}
 
 	public boolean isAlarmOn() {
