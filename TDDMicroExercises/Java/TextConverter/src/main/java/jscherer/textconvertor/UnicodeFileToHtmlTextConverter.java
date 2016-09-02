@@ -5,11 +5,12 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 
 public class UnicodeFileToHtmlTextConverter {
-	
+
 	private String fullFilenameWithPath;
-	private BufferedReader reader;
+	private Reader reader;
 
 	public UnicodeFileToHtmlTextConverter(String fullFilenameWithPath) {
 		this.fullFilenameWithPath = fullFilenameWithPath;
@@ -20,29 +21,33 @@ public class UnicodeFileToHtmlTextConverter {
 	 * 
 	 * @param reader
 	 */
-	public UnicodeFileToHtmlTextConverter(BufferedReader reader) {
+	public UnicodeFileToHtmlTextConverter(Reader reader) {
 		this.reader = reader;
 	}
 
 	public String convertToHtml() throws IOException {
-
+		BufferedReader bufferedReader = null;
 		if (reader == null) {
-			reader = new BufferedReader(new FileReader(fullFilenameWithPath));
+			bufferedReader = new BufferedReader(new FileReader(fullFilenameWithPath));
+		} else {
+			bufferedReader = new BufferedReader(reader);
 		}
 
-		String line = reader.readLine();
+		String line = bufferedReader.readLine();
 		String html = "";
 		while (line != null) {
 			/*
-			 * Escapes the characters in a String using HTML entities. For example:
-			 * "bread" & "butter" becomes: &quot;bread&quot; &amp; &quot;butter&quot;.
+			 * Escapes the characters in a String using HTML entities. For
+			 * example: "bread" & "butter" becomes: &quot;bread&quot; &amp;
+			 * &quot;butter&quot;.
 			 * 
-			 * Maybe this should be abstracted (as HtmlUtils) and injected to not violate OCP and DIP?
+			 * Maybe this should be abstracted (as HtmlUtils) and injected to
+			 * not violate OCP and DIP?
 			 */
 			html += StringEscapeUtils.escapeHtml4(line);
 			html += "<br />";
-//			System.out.println(html);
-			line = reader.readLine();
+			System.out.println(html);
+			line = bufferedReader.readLine();
 		}
 		return html;
 	}
