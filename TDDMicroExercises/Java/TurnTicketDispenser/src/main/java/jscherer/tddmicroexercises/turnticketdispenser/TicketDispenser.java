@@ -1,11 +1,15 @@
 package jscherer.tddmicroexercises.turnticketdispenser;
 
-public class TicketDispenser {
+public class TicketDispenser implements Sequence<TurnTicket>{
 
+	private static int turnNumber = 0;
+	
 	public TurnTicket getTurnTicket() {
-		int newTurnNumber = TurnNumberSequence.getNextTurnNumber();
-		TurnTicket newTurnTicket = new TurnTicket(newTurnNumber);
+		return next();
+	}
 
-		return newTurnTicket;
+	@Override
+	public TurnTicket next() {
+		return new TurnTicket(turnNumber++);
 	}
 }

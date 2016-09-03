@@ -27,7 +27,12 @@ public class TicketDispenserTest {
 	}
 	
 	@Test
-	public void testIssueTwoDifferentTickets() {
+	public void testIssueTwoDifferentTicketsFromDispenser1() {
 		assertThat(ticket11, is(not(ticket12)));
+	}
+	
+	@Test
+	public void testIssueTwoDifferentTicketsFromTwoDispensers() {
+		assertThat(ticket11, is(not(ticket21)));
 	}
 }

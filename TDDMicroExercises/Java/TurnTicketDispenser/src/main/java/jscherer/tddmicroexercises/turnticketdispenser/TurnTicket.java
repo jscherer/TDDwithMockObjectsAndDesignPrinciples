@@ -10,6 +10,10 @@ public class TurnTicket {
 	public int getTurnNumber() {
 		return turnNumber;
 	}
+	
+	public TurnTicket next() {
+		return new TurnTicket(turnNumber + 1);
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
