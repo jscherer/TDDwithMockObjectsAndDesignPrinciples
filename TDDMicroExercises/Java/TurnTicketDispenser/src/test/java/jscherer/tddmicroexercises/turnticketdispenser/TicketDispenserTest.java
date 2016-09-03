@@ -37,19 +37,35 @@ public class TicketDispenserTest {
 	}
 
 	@Test
-	public void testTestTicketSequenceStepSize10() {
+	public void testTestTicketSequenceStepSize10WithNestedClass() {
 		TicketDispenser dispenser = new TicketDispenserStepSize10();
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(10))));
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(20))));
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(30))));
 	}
-	
+
+	@Test
+	public void testTestTicketSequenceStepSize10WithConstructorInjection() {
+		TicketDispenser.turnNumber = 0;
+		TicketDispenser dispenser = new TicketDispenser(new Sequence<TurnTicket>() {
+			@Override
+			public TurnTicket next() {
+				return new TurnTicket(TicketDispenser.turnNumber += 10);
+			}
+		});
+		assertThat(dispenser.next(), is(equalTo(new TurnTicket(10))));
+		assertThat(dispenser.next(), is(equalTo(new TurnTicket(20))));
+		assertThat(dispenser.next(), is(equalTo(new TurnTicket(30))));
+	}
+
+	// TODO: How to do this with a Java 8 lambda expression
+
 	static class TicketDispenserStepSize10 extends TicketDispenser {
 		static int turnNumber = 0;
+
 		@Override
 		public TurnTicket next() {
 			return new TurnTicket(turnNumber += 10);
 		}
 	}
 }
-
