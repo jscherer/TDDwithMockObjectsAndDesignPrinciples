@@ -1,18 +1,11 @@
 package jscherer.tddmicroexercises.turnticketdispenser;
 
 public class TurnTicket {
+	
 	private final int turnNumber;
 
 	public TurnTicket(int turnNumber) {
 		this.turnNumber = turnNumber;
-	}
-
-	public int getTurnNumber() {
-		return turnNumber;
-	}
-	
-	public TurnTicket next() {
-		return new TurnTicket(turnNumber + 1);
 	}
 
 	/* (non-Javadoc)
@@ -42,4 +35,13 @@ public class TurnTicket {
 			return false;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "TurnTicket [turnNumber=" + turnNumber + "]";
+	}
+	
 }
