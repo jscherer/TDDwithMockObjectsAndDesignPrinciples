@@ -20,6 +20,7 @@ public class TicketDispenser implements Sequence<TurnTicket> {
 	 * @return
 	 * @see jscherer.tddmicroexercises.turnticketdispenser.Sequence#next()
 	 */
+	@Override
 	public TurnTicket next() {
 		return sequence.next();
 	}
