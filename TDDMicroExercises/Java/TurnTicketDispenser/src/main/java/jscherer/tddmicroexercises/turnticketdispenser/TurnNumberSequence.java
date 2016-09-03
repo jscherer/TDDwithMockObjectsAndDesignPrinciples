@@ -1,11 +1,18 @@
 package jscherer.tddmicroexercises.turnticketdispenser;
 
-public class TurnNumberSequence
-{
-    private static int turnNumber = 0;
+public class TurnNumberSequence {
+	
+	static int min = 1;
 
-    public static int getNextTurnNumber()
-    {
-        return turnNumber++;
-    }
+	public static int getNextTurnNumber() {
+		return nextValue();
+	}
+	
+	public static int nextValue() {
+		return min++;
+	}
+
+	public static void startWith(int min) {
+		TurnNumberSequence.min = min;
+	}
 }
