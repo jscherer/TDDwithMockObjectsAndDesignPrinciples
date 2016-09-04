@@ -1,6 +1,7 @@
 package jscherer.tddmicroexercises.turnticketdispenser;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Before;
@@ -10,6 +11,8 @@ public class TicketDispenserTest {
 
 	TicketDispenser dispenser1, dispenser2;
 	TurnTicket nullTicket, ticket11, ticket12, ticket21;
+	
+	// @Mock Sequence<TurnTicket> mockSequence; // threw NPE, why?
 
 	@Before
 	public void setUp() throws Exception {
@@ -47,18 +50,35 @@ public class TicketDispenserTest {
 	@Test
 	public void testTestTicketSequenceStepSize10WithConstructorInjection() {
 		TicketDispenser.turnNumber = 0;
-		TicketDispenser dispenser = new TicketDispenser(new Sequence<TurnTicket>() {
-			@Override
-			public TurnTicket next() {
-				return new TurnTicket(TicketDispenser.turnNumber += 10);
-			}
+		TicketDispenser dispenser = new TicketDispenser(() -> {
+			return new TurnTicket(TicketDispenser.turnNumber += 10);
 		});
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(10))));
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(20))));
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(30))));
 	}
 
-	// TODO: How to do this with a Java 8 lambda expression
+	@Test
+	public void testDispenseThreeTicketsWithMockedSequence() {
+		Sequence<TurnTicket> mockSequence = mock(Sequence.class);
+		when(mockSequence.next())
+			.thenReturn(new TurnTicket(10), new TurnTicket(20), new TurnTicket(30));
+		TicketDispenser.turnNumber = 0;
+		TicketDispenser dispenser = new TicketDispenser(mockSequence);
+		
+		dispenseThreeTurnTickets(dispenser);
+		
+		verify(mockSequence, times(3)).next();
+	}
+	
+	/**
+	 * @param dispenser
+	 */
+	private void dispenseThreeTurnTickets(TicketDispenser dispenser) {
+		dispenser.next();
+		dispenser.next();
+		dispenser.next();
+	}
 
 	static class TicketDispenserStepSize10 extends TicketDispenser {
 		static int turnNumber = 0;
@@ -69,3 +89,4 @@ public class TicketDispenserTest {
 		}
 	}
 }
+
