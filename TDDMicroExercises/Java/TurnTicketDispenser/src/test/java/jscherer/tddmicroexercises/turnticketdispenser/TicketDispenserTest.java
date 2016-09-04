@@ -1,21 +1,29 @@
 package jscherer.tddmicroexercises.turnticketdispenser;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 public class TicketDispenserTest {
 
 	TicketDispenser dispenser1, dispenser2;
 	TurnTicket nullTicket, ticket11, ticket12, ticket21;
 	
-	// @Mock Sequence<TurnTicket> mockSequence; // threw NPE, why?
+	@Mock Sequence<TurnTicket> mockSequence; // threw NPE, why?
 
 	@Before
 	public void setUp() throws Exception {
+		initMocks(this);
 		dispenser1 = new TicketDispenser();
 		ticket11 = dispenser1.getTurnTicket();
 		ticket12 = dispenser1.getTurnTicket();
@@ -60,7 +68,6 @@ public class TicketDispenserTest {
 
 	@Test
 	public void testDispenseThreeTicketsWithMockedSequence() {
-		Sequence<TurnTicket> mockSequence = mock(Sequence.class);
 		when(mockSequence.next())
 			.thenReturn(new TurnTicket(10), new TurnTicket(20), new TurnTicket(30));
 		TicketDispenser.turnNumber = 0;
