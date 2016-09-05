@@ -4,3 +4,6 @@ Here you can find:
 
 -  the Coding-Dojo [Refactoring legacy code driven by tests] (TDDMicroExercises#readme) with source code (Java, C#, JavaScript, Python, Ruby, PHP), instructions and slides
 -  the [paper] (Paper/mockobjects_emergingproperties.pdf?raw=true) and the [paper's presentation] (Slides/TDD-SOLID.pdf?raw=true)
+-  presentation and article from Michael Feathers about Working Effectively with Legacy Code (WELC)
+-  txt file with excerpts from WELC,
+
