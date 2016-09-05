@@ -1,5 +1,13 @@
 Michael Feathers: Working Effectively with Legacy Code (WELC)
 
+The Legacy Code Change Algorithm
+
+1. Identify change points.
+2. Find test points.
+3. Break dependencies.		(see Chapter 25 Dependency-Breaking Techniques below)
+4. Write tests. 		(see Chapter 13.1 Characterization Tests below)
+5. Make changes and refactor.
+
 Chapter 25 Dependency-Breaking Techniques
 
 In this chapter, I’ve written up a set of dependency-breaking techniques. Technically, 
@@ -115,3 +123,27 @@ public class SomeClassUnderTest {
 
     ...
 }
+
+Chapter 13.1 Characterization Tests
+
+Here is a little algorithm for writing characterization tests:
+
+1. Use a piece of code in a test harness.
+2. Write an assertion that you know will fail.
+3. Let the failure tell you what the behavior is.
+4. Change the test so that it expects the behavior that the code produces.
+5. Repeat.
+
+In the following example, I’m reasonably sure that a PageGenerator is not
+going to generate the string “fred”:
+
+void testGenerator() {
+    // 0. arrange
+    PageGenerator generator = new PageGenerator();
+
+    // 1. act, 2. assert
+    assertEquals("fred", generator.generate());
+}
+
+Run your test and let it fail. When it does, you have found out what the code
+actually does under that condition.
