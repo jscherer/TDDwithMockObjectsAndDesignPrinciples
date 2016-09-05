@@ -6,7 +6,7 @@ The Legacy Code Change Algorithm
 2. Find test points.
 3. Break dependencies.		(see Chapter 25 Dependency-Breaking Techniques below)
 4. Write tests. 		(see Chapter 13.1 Characterization Tests below)
-5. Make changes and refactor.
+5. Make changes and refactor.	(see below)
 
 Chapter 25 Dependency-Breaking Techniques
 
@@ -147,3 +147,20 @@ void testGenerator() {
 
 Run your test and let it fail. When it does, you have found out what the code
 actually does under that condition.
+
+5. Make changes and refactor.
+
+Typical refactoring pattern:
+
+5.1 Extract Method
+Extract Method to meet Single Level of Abstraction (SLA). 
+Design Test First by refactor into test. 
+Lower size and cyclomatic complexity of methods (max 10 lines, max CC 8).
+
+5.2 Extract Class
+Extract Class to meet Single Responsibility Principle (SRP). 
+Look at LCOM4 metric to split classes. 
+Reduce number of methods for a class (max 10).
+
+
+
