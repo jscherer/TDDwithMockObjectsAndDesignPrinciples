@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -24,6 +25,9 @@ public class TicketDispenserTest {
 	@Before
 	public void setUp() throws Exception {
 		initMocks(this);
+		
+		TicketDispenser.setTurnNumber(0);
+		
 		dispenser1 = new TicketDispenser();
 		ticket11 = dispenser1.getTurnTicket();
 		ticket12 = dispenser1.getTurnTicket();
@@ -57,10 +61,12 @@ public class TicketDispenserTest {
 
 	@Test
 	public void testTestTicketSequenceStepSize10WithConstructorInjection() {
-		TicketDispenser.turnNumber = 0;
+		
+		TicketDispenser.setTurnNumber(0);  // fails if removed!
 		TicketDispenser dispenser = new TicketDispenser(() -> {
 			return new TurnTicket(TicketDispenser.turnNumber += 10);
 		});
+		
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(10))));
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(20))));
 		assertThat(dispenser.next(), is(equalTo(new TurnTicket(30))));
@@ -70,13 +76,13 @@ public class TicketDispenserTest {
 	public void testDispenseThreeTicketsWithMockedSequence() {
 		when(mockSequence.next())
 			.thenReturn(new TurnTicket(10), new TurnTicket(20), new TurnTicket(30));
-		TicketDispenser.turnNumber = 0;
+
 		TicketDispenser dispenser = new TicketDispenser(mockSequence);
 		
 		dispenseThreeTurnTickets(dispenser);
 		
 		verify(mockSequence, times(3)).next();
-	}
+	}	
 	
 	/**
 	 * @param dispenser

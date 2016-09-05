@@ -2,7 +2,7 @@ package jscherer.tddmicroexercises.turnticketdispenser;
 
 public class TicketDispenser implements Sequence<TurnTicket> {
 
-	protected static int turnNumber = 0;
+	static int turnNumber = 0;
 	private Sequence<TurnTicket> sequence;
 
 	public TicketDispenser() {
@@ -23,6 +23,20 @@ public class TicketDispenser implements Sequence<TurnTicket> {
 	@Override
 	public TurnTicket next() {
 		return sequence.next();
+	}
+
+	/**
+	 * @return the turnNumber
+	 */
+	protected int getTurnNumber() {
+		return TicketDispenser.turnNumber;
+	}
+
+	/**
+	 * @param turnNumber the turnNumber to set
+	 */
+	protected static void setTurnNumber(int turnNumber) {
+		TicketDispenser.turnNumber = turnNumber;
 	}
 
 	/**
