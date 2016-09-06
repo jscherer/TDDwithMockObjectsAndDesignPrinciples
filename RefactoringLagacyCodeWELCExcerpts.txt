@@ -6,20 +6,34 @@ The Legacy Code Change Algorithm
 2. Find test points.
 3. Break dependencies.		(see Chapter 25 Dependency-Breaking Techniques below)
 4. Write tests. 		(see Chapter 13.1 Characterization Tests below)
-5. Make changes and refactor.
+5. Make changes and refactor.	(see 5 Make changes and refactor at the end)
 
 Chapter 25 Dependency-Breaking Techniques
 
-In this chapter, Iíve written up a set of dependency-breaking techniques. Technically, 
-these techniques are refactoringsóeach of them preserves behavior. But unlike most
+In this chapter, I‚Äôve written up a set of dependency-breaking techniques. Technically, 
+these techniques are refactorings‚Äîeach of them preserves behavior. But unlike most
 refactorings written up in the industry so far, these refactorings are intended to
 be done without tests, to get tests in place. In most cases, if you follow the steps
 carefully, the chance of mistakes is small.
 
+S. Subclass and Override Method
 A. Parametrize Constructor
 B. Extract Interface
 C. Skin and Wrap the API (ch. 15)
 D. Introduce Instance Delegator
+
+S. Subclass and Override Method is a core technique for breaking dependencies in
+object-oriented programs. In fact, many of the other dependency-breaking
+techniques in this chapter are variations on it.
+To Subclass and Override Method, do the following: (WELC 403)
+1. Identify the dependencies that you want to separate. Try to find the 
+smallest set of methods that you can override to achieve your goals.
+2. Make each method overridable. The way to do this varies among programming
+languages. In Java, the methods need to be made non-final.
+3. If your language requires it, adjust the visibility of the methods that you
+will override to so that they can be overridden in a subclass.
+4. Create a subclass that overrides the methods. Verify that you are able to
+build it in your test harness.
 
 A. To Parameterize Constructor, follow these steps: (WELC 382)
 1. Identify the constructor that you want to parameterize and make a copy
@@ -30,15 +44,15 @@ from the parameter to the instance variable for the object.
 3. If you can call a constructor from a constructor in your language,
 remove the body of the old constructor and replace it with a call to the
 old constructor. Add a new expression to the call of the new constructor
-in the old constructor. If you canít call a constructor from another constructor
+in the old constructor. If you can‚Äôt call a constructor from another constructor
 in your language, you may have to extract any duplication
 among the constructors to a new method.
 
 B. To Extract Interface, follow these steps: (WELC 366)
-1. Create a new interface with the name youíd like to use. Donít add any
+1. Create a new interface with the name you‚Äôd like to use. Don‚Äôt add any
 methods to it yet.
 2. Make the class that you are extracting from implement the interface.
-This canít break anything because the interface doesnít have any methods.
+This can‚Äôt break anything because the interface doesn‚Äôt have any methods.
 But it is good to compile and run your test just to verify that.
 3. Change the place where you want to use the object so that it uses the
 interface rather than the original class.
@@ -61,30 +75,30 @@ argument. If you have trouble creating a class that wraps the
 original class in a test harness, you might have to use Extract Implementer
 (356) or Extract Interface (362) on the wrapped class so that you
 can instantiate your wrapper.
-3. Create a method on that class, using test-driven development (88), that
+3. Create a method (Sprout Method, 62) on that class, using test-driven development (88), that
 does the new work. Write another method that calls the new method
 and the old method on the wrapped class.
 4. Instantiate the wrapper class in your code in the place where you need to
 enable the new behavior.
 
-class LoggingPayDispatcher extends Employee {
-    private Employee e;
+class LoggingPayDispatcher {
+    private Employee employee;
     
-    // 2. wrapped class as a constructor argument
+    // 2. wrapped class/interface as a constructor argument
     public LoggingPayDispatcher(Employee e) {
-        this.e = e;
+        this.employee = e;
     }
  
-    // 1. method to change
+    // 3. method that calls the new method and the old method on the wrapped class.
     public void pay() {
+        // new method
         logPayment();
+        // old method to change
         employee.pay();
     }
 
    // new work (TDD)
    private void logPayment() { ... }
-
-   ...
 }
 
 D. To Introduce Instance Delegator, follow these steps: (WELC 371)
@@ -108,8 +122,6 @@ public class BankingServices {
     public void updateBalance(int userID, Money amount) {
         updateAccountBalance(userID, amount);
     }
-
-    ...
 }
 
 public class SomeClassUnderTest {
@@ -120,22 +132,20 @@ public class SomeClassUnderTest {
         // BankingServices.updateAccountBalance(id, sum);
         services.updateBalance(id,sum);
     }
-
-    ...
 }
 
 Chapter 13.1 Characterization Tests
 
 Here is a little algorithm for writing characterization tests:
 
-1. Use a piece of code in a test harness.
-2. Write an assertion that you know will fail.
+1. Use a piece of code in a test harness. (act)
+2. Write an assertion that you know will fail. (assert)
 3. Let the failure tell you what the behavior is.
 4. Change the test so that it expects the behavior that the code produces.
 5. Repeat.
 
-In the following example, Iím reasonably sure that a PageGenerator is not
-going to generate the string ìfredî:
+In the following example, I‚Äôm reasonably sure that a PageGenerator is not
+going to generate the string ‚Äúfred‚Äù:
 
 void testGenerator() {
     // 0. arrange
@@ -147,3 +157,17 @@ void testGenerator() {
 
 Run your test and let it fail. When it does, you have found out what the code
 actually does under that condition.
+
+5. Make changes and refactor.
+
+Typical refactoring pattern:
+
+5.1 Extract Method
+Extract Method to meet Single Level of Abstraction (SLA). 
+Design Test First by refactor into test. 
+Lower size and cyclomatic complexity of methods (eg. max 10 lines, max CC 8).
+
+5.2 Extract Class
+Extract Class to meet Single Responsibility Principle (SRP). 
+Look at LCOM4 metric to split classes. 
+Reduce number of methods per class (eg. max 10).
