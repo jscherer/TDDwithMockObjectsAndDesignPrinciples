@@ -75,7 +75,7 @@ argument. If you have trouble creating a class that wraps the
 original class in a test harness, you might have to use Extract Implementer
 (356) or Extract Interface (362) on the wrapped class so that you
 can instantiate your wrapper.
-3. Create a method on that class, using test-driven development (88), that
+3. Create a method (Sprout Method, 62) on that class, using test-driven development (88), that
 does the new work. Write another method that calls the new method
 and the old method on the wrapped class.
 4. Instantiate the wrapper class in your code in the place where you need to
