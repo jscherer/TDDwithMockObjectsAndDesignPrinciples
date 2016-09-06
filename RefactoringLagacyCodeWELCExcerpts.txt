@@ -97,8 +97,6 @@ class LoggingPayDispatcher extends Employee {
 
    // new work (TDD)
    private void logPayment() { ... }
-
-   ...
 }
 
 D. To Introduce Instance Delegator, follow these steps: (WELC 371)
@@ -122,8 +120,6 @@ public class BankingServices {
     public void updateBalance(int userID, Money amount) {
         updateAccountBalance(userID, amount);
     }
-
-    ...
 }
 
 public class SomeClassUnderTest {
@@ -134,16 +130,14 @@ public class SomeClassUnderTest {
         // BankingServices.updateAccountBalance(id, sum);
         services.updateBalance(id,sum);
     }
-
-    ...
 }
 
 Chapter 13.1 Characterization Tests
 
 Here is a little algorithm for writing characterization tests:
 
-1. Use a piece of code in a test harness.
-2. Write an assertion that you know will fail.
+1. Use a piece of code in a test harness. (act)
+2. Write an assertion that you know will fail. (assert)
 3. Let the failure tell you what the behavior is.
 4. Change the test so that it expects the behavior that the code produces.
 5. Repeat.
