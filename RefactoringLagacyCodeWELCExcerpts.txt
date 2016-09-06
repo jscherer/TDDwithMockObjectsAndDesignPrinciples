@@ -10,8 +10,8 @@ The Legacy Code Change Algorithm
 
 Chapter 25 Dependency-Breaking Techniques
 
-In this chapter, Iíve written up a set of dependency-breaking techniques. Technically, 
-these techniques are refactoringsóeach of them preserves behavior. But unlike most
+In this chapter, I‚Äôve written up a set of dependency-breaking techniques. Technically, 
+these techniques are refactorings‚Äîeach of them preserves behavior. But unlike most
 refactorings written up in the industry so far, these refactorings are intended to
 be done without tests, to get tests in place. In most cases, if you follow the steps
 carefully, the chance of mistakes is small.
@@ -22,8 +22,7 @@ B. Extract Interface
 C. Skin and Wrap the API (ch. 15)
 D. Introduce Instance Delegator
 
-S. Subclass and Override Method
-Subclass and Override Method is a core technique for breaking dependencies in
+S. Subclass and Override Method is a core technique for breaking dependencies in
 object-oriented programs. In fact, many of the other dependency-breaking
 techniques in this chapter are variations on it.
 To Subclass and Override Method, do the following: (WELC 403)
@@ -45,15 +44,15 @@ from the parameter to the instance variable for the object.
 3. If you can call a constructor from a constructor in your language,
 remove the body of the old constructor and replace it with a call to the
 old constructor. Add a new expression to the call of the new constructor
-in the old constructor. If you canít call a constructor from another constructor
+in the old constructor. If you can‚Äôt call a constructor from another constructor
 in your language, you may have to extract any duplication
 among the constructors to a new method.
 
 B. To Extract Interface, follow these steps: (WELC 366)
-1. Create a new interface with the name youíd like to use. Donít add any
+1. Create a new interface with the name you‚Äôd like to use. Don‚Äôt add any
 methods to it yet.
 2. Make the class that you are extracting from implement the interface.
-This canít break anything because the interface doesnít have any methods.
+This can‚Äôt break anything because the interface doesn‚Äôt have any methods.
 But it is good to compile and run your test just to verify that.
 3. Change the place where you want to use the object so that it uses the
 interface rather than the original class.
@@ -149,8 +148,8 @@ Here is a little algorithm for writing characterization tests:
 4. Change the test so that it expects the behavior that the code produces.
 5. Repeat.
 
-In the following example, Iím reasonably sure that a PageGenerator is not
-going to generate the string ìfredî:
+In the following example, I‚Äôm reasonably sure that a PageGenerator is not
+going to generate the string ‚Äúfred‚Äù:
 
 void testGenerator() {
     // 0. arrange
