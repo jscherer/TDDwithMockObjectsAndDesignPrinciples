@@ -81,7 +81,7 @@ and the old method on the wrapped class.
 4. Instantiate the wrapper class in your code in the place where you need to
 enable the new behavior.
 
-class LoggingPayDispatcher extends Employee {
+class LoggingPayDispatcher {
     private Employee employee;
     
     // 2. wrapped class as a constructor argument
