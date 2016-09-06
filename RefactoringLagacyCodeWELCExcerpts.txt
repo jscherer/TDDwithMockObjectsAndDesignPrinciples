@@ -26,7 +26,7 @@ S. Subclass and Override Method is a core technique for breaking dependencies in
 object-oriented programs. In fact, many of the other dependency-breaking
 techniques in this chapter are variations on it.
 To Subclass and Override Method, do the following: (WELC 403)
-1. Identify the dependencies that you want to separate ... Try to find the 
+1. Identify the dependencies that you want to separate. Try to find the 
 smallest set of methods that you can override to achieve your goals.
 2. Make each method overridable. The way to do this varies among programming
 languages. In Java, the methods need to be made non-final.
