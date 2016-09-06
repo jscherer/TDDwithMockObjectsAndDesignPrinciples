@@ -84,7 +84,7 @@ enable the new behavior.
 class LoggingPayDispatcher {
     private Employee employee;
     
-    // 2. wrapped class as a constructor argument
+    // 2. wrapped class/interface as a constructor argument
     public LoggingPayDispatcher(Employee e) {
         this.employee = e;
     }
