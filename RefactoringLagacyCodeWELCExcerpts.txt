@@ -91,9 +91,9 @@ class LoggingPayDispatcher extends Employee {
  
     // 3. method that calls the new method and the old method on the wrapped class.
     public void pay() {
-        // 3. new work
+        // new method
         logPayment();
-        // 1. old method to change
+        // old method to change
         employee.pay();
     }
 
