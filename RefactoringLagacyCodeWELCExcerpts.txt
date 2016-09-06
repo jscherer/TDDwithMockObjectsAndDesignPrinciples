@@ -82,16 +82,18 @@ and the old method on the wrapped class.
 enable the new behavior.
 
 class LoggingPayDispatcher extends Employee {
-    private Employee e;
+    private Employee employee;
     
     // 2. wrapped class as a constructor argument
     public LoggingPayDispatcher(Employee e) {
-        this.e = e;
+        this.employee = e;
     }
  
-    // 1. method to change
+    // 3. method that calls the new method and the old method on the wrapped class.
     public void pay() {
+        // 3. new work
         logPayment();
+        // 1. old method to change
         employee.pay();
     }
 
